@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block note %}
+    {% for note in notes %}
+       <h2> {{ note.title }} </h2>
+        <p> {{ note.text }} </p>
+        <br>
+        <p>{{ note.category }}</p>
+
+        <form action="/note/delete/{{ note.id }}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="delete">
+        </form>
+    {% endfor %}
+{% endblock %}
