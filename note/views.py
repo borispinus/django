@@ -1,13 +1,25 @@
-from django.shortcuts import render
+import json
 from django.shortcuts import render_to_response, redirect
 from note.models import Note
-from django.http.response import Http404
+from django.http.response import Http404, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from note.forms import NoteForm
 from django.core.context_processors import csrf
 from datetime import datetime
+from django.core import serializers
+from django.utils.functional import Promise
+from django.utils.encoding import force_text
+from django.core.serializers.json import DjangoJSONEncoder
+
 
 # Create your views here.
+
+
+class LazyEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, set):
+            return list(obj)
+        return super(LazyEncoder, self).default(obj)
 
 
 def all(request):
@@ -25,11 +37,11 @@ def get(request, note_id):
 
 
 def new(request):
+    args = {}
+    form = NoteForm
+    args.update(csrf(request))
+    args['form'] = form
     if (request.method == 'GET'):
-        form = NoteForm
-        args = {}
-        args.update(csrf(request))
-        args['form'] = form
         return render_to_response('new.html',args)
     else:
         if (request.POST):
@@ -38,18 +50,30 @@ def new(request):
                 note = form.save(commit=False)
                 note.date = datetime.now()
                 note.save()
-    return redirect('/note/all')
+                return redirect('/note/all')
+        return render_to_response('new.html',args)
 
 
 def delete(request, note_id):
-    if (request.POST):
+    if (request.POST and  request.is_ajax()):
         try:
-            note = Note.objects.get(id = note_id)
+            note = Note.objects.get(id=note_id)
             note.delete()
-            return redirect('/note/all')
+            return HttpResponse()
         except ObjectDoesNotExist:
             raise Http404
 
+
+def filter_category(request):
+    if (request.is_ajax() and request.POST):
+        notes = Note.objects.filter(category=request.POST.get('category'))
+        list= []
+        for note in notes:
+           list.append(note.to_string())
+        data = json.dumps(list)
+        return HttpResponse({'notes': notes})
+    else:
+        raise Http404
 
 
 

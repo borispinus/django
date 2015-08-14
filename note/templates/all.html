@@ -1,14 +1,54 @@
 {% extends 'layout.html' %}
 {% block note %}
-    {% for note in notes %}
-       <h2> {{ note.title }} </h2>
-        <p> {{ note.text }} </p>
-        <br>
-        <p>{{ note.category }}</p>
+    <form>
+        <label>По дате</label>
+        <input type="radio" name="filter" value="date" id="date-filter-radio" >
+        <label>По категории</label>
+        <input type="radio" name="filter" value="category" id="category-filter-radio" >
+        <label>По заголовку</label>
+        <input type="radio" name="filter" value="title" id="category-filter-radio" >
+        <label>Избранное</label>
+        <input type="radio" name="filter" value="favorite" id="favorite-filter-radio">
+    </form>
+    <br>
+    <div id="title-details" style="display: none">
+        <label>Enter title</label>
+        <input type="text" class="title-input">
+        <button id="title-filter-btn">Find</button>
+    </div>
 
-        <form action="/note/delete/{{ note.id }}" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="delete">
+    <div id="date-details" style="display: none">
+        <form>
+            <label>Enter start date</label>
+            <input type="datetime" name="start">
+            <label>Enter end date</label>
+            <input type="datetime" name="finish">
+            <input type="submit" id="date-filter-btn">Find</input>
         </form>
-    {% endfor %}
+    </div>
+
+    <div id="category-details" style="display: none">
+        <label>link</label>
+        <input type="radio" name="category" value="LINK">
+        <label>note</label>
+        <input type="radio" name="category" value="NOTE" >
+        <label>todo</label>
+        <input type="radio" name="category" value="TODO">
+        <label>memo</label>
+        <input type="radio" name="category" value="MEMO">
+    </div>
+
+    <div id="notes_wrapper">
+        <div id="notes">
+            {% for note in notes %}
+                <div id='note{{ note.id }}' class="note">
+                    <h2 class="note-title">{{ note.title }}</h2>
+                    <p> {{ note.text }} </p>
+                    <br>
+                    <p class="note-category">{{ note.category }}</p>
+                    <button class="delete-btn">Delete</button>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
 {% endblock %}

@@ -1,9 +1,15 @@
 <!DOCTYPE html >
 <html>
  <head>
-  <title> NoteApp</title>
+    <title> NoteApp</title>
   </head>
   <body>
-{% block note %}{% endblock %}
- </body>
+    {% block note %}{% endblock %}
+
+    {% load staticfiles %}
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src= {% static 'js/note.js' %}></script>
+
+  </body>
 </html>
