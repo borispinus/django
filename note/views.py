@@ -76,4 +76,11 @@ def filter_category(request):
         raise Http404
 
 
-
+def favorite(request, note_id):
+     if (request.is_ajax() and request.method == 'POST'):
+         note =Note.objects.get(id=note_id)
+         note.isFavorite = not note.isFavorite
+         note.save()
+         return HttpResponse(note.isFavorite)
+     else:
+         raise Http404

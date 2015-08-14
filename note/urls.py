@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^new/$', 'note.views.new'),
     url(r'^filter/category$', 'note.views.filter_category'),
     url(r'^delete/(?P<note_id>\d+)$', 'note.views.delete'),
+    url(r'^favorite/(?P<note_id>\d+)$', 'note.views.favorite'),
 ]

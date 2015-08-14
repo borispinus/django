@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load staticfiles %}
 {% block note %}
     <form>
         <label>По дате</label>
@@ -42,12 +43,23 @@
         <div id="notes">
             {% for note in notes %}
                 <div id='note{{ note.id }}' class="note">
+                    {% if note.isFavorite %}
+
+                    <button id="favorite-btn{{ note.id }}" class="favorite-btn" ><img id="btn-img{{ note.id }}" src= {% static 'img/favorite.png' %}></button>
+
+                        {% else %}
+
+                        <button id='not_favorite-btn{{ note.id }}' class="favorite-btn"><img id="btn-img{{ note.id }}" src= {% static 'img/not_favorite.png' %}></button>
+
+                    {% endif %}
                     <h2 class="note-title">{{ note.title }}</h2>
                     <p> {{ note.text }} </p>
                     <br>
                     <p class="note-category">{{ note.category }}</p>
                     <button class="delete-btn">Delete</button>
                 </div>
+                <br>
+                <br>
             {% endfor %}
             </div>
         </div>

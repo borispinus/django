@@ -7,7 +7,6 @@ $(document).ready(function(){
          }
      }
 });
-
     $(document).on('click','.delete-btn', function() {
         var id = $(this).parent().attr("id").substr(4);
         $.ajax({
@@ -39,6 +38,23 @@ $(document).ready(function(){
                 $(this).show();
             }
         })
+    });
+
+    $(document).on('click','.favorite-btn', function() {
+        var id = $(this).parent().attr("id").substr(4);
+        $.ajax({
+            type: 'POST',
+            url: '/note/favorite/' + id,
+            success: function (data) {
+                if (data == 'True') {
+                    $('#btn-img' + id).attr('src','/static/img/favorite.png');
+                }
+                else {
+                    $('#btn-img' + id).attr('src','/static/img/not_favorite.png');
+                }
+            }
+        });
+
     });
 
 
@@ -73,9 +89,15 @@ $('input:radio[name="filter"]').change(
                  $('#category-details').hide();
                  $('#title-details').hide();
                  $('#date-details').show();
+
+
             }
              if($(this).val() == 'favorite'){
-                
+                 $('#category-details').hide();
+                 $('#title-details').hide();
+                 $('#date-details').hide();
+
+
             }
         }
     });
