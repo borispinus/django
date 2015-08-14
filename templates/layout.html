@@ -1,12 +1,26 @@
+{% load staticfiles %}
 <!DOCTYPE html >
 <html>
  <head>
-    <title> NoteApp</title>
+     <title> NoteApp</title>
+     <link rel="stylesheet" type="text/css" href="{% static 'css/foundation.css' %}">
   </head>
   <body>
-    {% block note %}{% endblock %}
+    <div class="top-bar">
+        <section class="top-bar-section">
+            <ul class="right">
+                {% if username %}
+                    <li><a href="auth/logout/">Log out, {{ username }}</a></li>
+                {% else %}
+                    <li><a href="auth/login/">Login</a></li>
+                {% endif %}
+            </ul>
+        </section>
+    </div>
 
-    {% load staticfiles %}
+    {% block note %}{% endblock %}
+    {% block login %}{% endblock %}
+
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src= {% static 'js/note.js' %}></script>

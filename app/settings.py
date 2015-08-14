@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'note',
+    'loginsys'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/home/boro/djangoenv/bin/app/templates'],
+        'DIRS': ['/home/boro/djangoenv/bin/app/templates', '/home/boro/djangoenv/bin/app/note/templates', '/home/boro/djangoenv/bin/app/loginsys/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -108,4 +109,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     'note/static',
+    'static'
 )

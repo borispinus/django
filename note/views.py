@@ -6,9 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from note.forms import NoteForm
 from django.core.context_processors import csrf
 from datetime import datetime
-from django.core import serializers
-from django.utils.functional import Promise
-from django.utils.encoding import force_text
+from django.contrib import auth
 from django.core.serializers.json import DjangoJSONEncoder
 
 
@@ -26,12 +24,13 @@ def all(request):
     args = {}
     args.update(csrf(request))
     args['notes'] = Note.objects.all
+    args['username'] = auth.get_user(request).username
     return render_to_response('all.html', args)
 
 
 def get(request, note_id):
     try:
-        return render_to_response('note.html', {'note': Note.objects.get(id=note_id)})
+        return render_to_response('note.html', {'note': Note.objects.get(id=note_id), 'username': auth.get_user(request).username})
     except ObjectDoesNotExist:
         raise Http404
 
@@ -41,6 +40,7 @@ def new(request):
     form = NoteForm
     args.update(csrf(request))
     args['form'] = form
+    args['username'] = auth.get_user(request).username
     if (request.method == 'GET'):
         return render_to_response('new.html',args)
     else:

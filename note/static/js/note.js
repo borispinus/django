@@ -51,6 +51,9 @@ $(document).ready(function(){
                 }
                 else {
                     $('#btn-img' + id).attr('src','/static/img/not_favorite.png');
+                    if ($("#favorite-filter-radio").prop("checked")){
+                        $("#note"+id).hide();
+                    }
                 }
             }
         });
@@ -96,7 +99,14 @@ $('input:radio[name="filter"]').change(
                  $('#category-details').hide();
                  $('#title-details').hide();
                  $('#date-details').hide();
-
+                  $('.note').each(function(){
+                      if ($(this).children('.favorite-btn').children('.btn-img').attr('src') == '/static/img/not_favorite.png'){
+                          $(this).hide();
+                      }
+                      else{
+                          $(this).show();
+                      }
+                  })
 
             }
         }
