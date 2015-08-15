@@ -3,27 +3,44 @@
 <html>
  <head>
      <title> NoteApp</title>
+     <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'css/foundation.min.css' %}">
      <link rel="stylesheet" type="text/css" href="{% static 'css/foundation.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'css/note.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'css/datepicker.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'css/foundation-datepicker.css' %}">
+     <link href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
+     <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
   </head>
   <body>
-    <div class="top-bar">
-        <section class="top-bar-section">
-            <ul class="right">
-                {% if username %}
-                    <li><a href="auth/logout/">Log out, {{ username }}</a></li>
-                {% else %}
-                    <li><a href="auth/login/">Login</a></li>
-                {% endif %}
-            </ul>
-        </section>
-    </div>
+  <div class="login-top">
+      <div class="top-bar">
+          <section class="top-bar-section">
+              <ul class="right">
+                  {% if username %}
+                      <li><a href="/auth/logout/">Log out, {{ username }}</a></li>
+                  {% else %}
+                      <li><a href="/auth/login/">Login</a></li>
+                  {% endif %}
+              </ul>
+            {% if username %}
+                <ul class="left">
+                    <li><a role="button" tabindex="0" id="filter-btn">Filter</a></li>
+                </ul>
+            {% endif %}
+          </section>
+      </div>
+  </div>
 
-    {% block note %}{% endblock %}
-    {% block login %}{% endblock %}
+  {% block note %}{% endblock %}
+  {% block login %}{% endblock %}
 
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script src= {% static 'js/note.js' %}></script>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src= {% static 'js/note.js' %}></script>
+  <script src= {% static 'js/foundation-datepicker.js' %}></script>
+  <script src= {% static 'js/foundation-datepicker.min.js' %}></script>
+   <script src= {% static 'js/js/bootstrap-datepicker.js' %}></script>
 
   </body>
 </html>

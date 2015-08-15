@@ -1,8 +1,18 @@
 {% extends 'layout.html' %}
 {% block note %}
-   <form method="post" >
-   {% csrf_token %}
-   {{ form }}
-   <input type="submit" value="New note">
-   </form>
+    <div class="new_form">
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+        <br>
+            <div class="row">
+                <input type="submit" value="New note" class="button">
+            </div>
+            {% if errors %}
+                <div class="row">
+                    {{ errors }}
+                </div>
+            {% endif %}
+        </form>
+    </div>
 {% endblock %}

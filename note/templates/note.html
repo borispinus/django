@@ -1,8 +1,29 @@
 {% extends 'layout.html' %}
+{% load staticfiles %}
 {% block note %}
-       <h2> {{ note.title }} </h2>
-        <p> {{ note.text }} </p>
-        <br>
-        <p>{{ note.category }}</p>
+    <div id='note{{ note.id }}' class="note">
+                    {% if note.isFavorite %}
 
+                        <a role='button' tabindex="0" id="favorite-btn{{ note.id }}" class="favorite-btn"><img class="btn-img"
+                                                                                         id="btn-img{{ note.id }}"
+                                                                                         src= {% static 'img/favorite.png' %}>
+                        </a>
+
+                    {% else %}
+
+                        <a role='button' tabindex="0" id='not_favorite-btn{{ note.id }}' class="favorite-btn"><img id="btn-img{{ note.id }}"
+                                                                                             class="btn-img"
+                                                                                             src= {% static 'img/not_favorite.png' %}>
+                        </a>
+
+                    {% endif %}
+                    <h2 class="note-category">{{ note.category }}</h2>
+                    <a href="/note/{{ note.id }}"><h3 class="note-title">{{ note.title }}</h3></a>
+                    <br>
+                    <p> {{ note.text }} </p>
+                    <br>
+                    <p>{{ note.date }}</p>
+                    <br>
+                    <br>
+                </div>
 {% endblock %}

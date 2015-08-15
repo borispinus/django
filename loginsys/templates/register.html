@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block login %}
+    <br>
+    <div class="large-offset-3 large-6 columns">
+        <form action="/auth/register/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <br>
+            <br>
+            <input class="button" type="submit" value="Register">
+        </form>
+    </div>
+{% endblock %}

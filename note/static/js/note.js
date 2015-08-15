@@ -1,13 +1,39 @@
-$(document).ready(function(){
-        $.ajaxSetup({
-     beforeSend: function(xhr, settings) {
-         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-             // Only send the token to relative URLs i.e. locally.
-             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-         }
-     }
-});
-    $(document).on('click','.delete-btn', function() {
+$(document).ready(function () {
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                // Only send the token to relative URLs i.e. locally.
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        }
+    });
+    $(document).on('click', '#filter-btn', function () {
+        $('#filter-form').show();
+    });
+
+
+
+    var nowTemp = new Date();
+    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+    var checkin = $('#dp1').datepicker().on('changeDate', function (ev) {
+        if (ev.date.valueOf() > checkout.date.valueOf()) {
+            var newDate = new Date(ev.date)
+            newDate.setDate(newDate.getDate() + 1);
+            checkout.setValue(newDate);
+        }
+        checkin.hide();
+        $('#dp2')[0].focus();
+    }).data('datepicker');
+    var checkout = $('#dp2').datepicker()
+        .on('changeDate', function (ev) {
+        checkout.hide();
+    }).data('datepicker');
+
+
+
+
+    $(document).on('click', '.delete-btn', function () {
         var id = $(this).parent().attr("id").substr(4);
         $.ajax({
             type: 'POST',
@@ -19,40 +45,66 @@ $(document).ready(function(){
         $('#category-details').hide();
         $('#title-details').hide();
         $('#date-details').hide();
-        jQuery( ":radio").each(function(){
+        jQuery(":radio").each(function () {
             $(this).attr('checked', false);
         });
 
         $("#notes_wrapper").load(location.href + " #notes");
     });
 
-    $(document).on('click','#title-filter-btn', function() {
+    $(document).on('click', '#title-filter-btn', function () {
         var value = $('.title-input').val();
-        $('.note').each(function(){
-            if ($(this).children('.note-title').text() != value){
-                console.log(value);
-                console.log($(this).children('.note-title').text());
+        $('.note').each(function () {
+            if ($(this).children('.note-title').text() != value) {
+                console.log(value+1);
+                console.log($(this).children('.note-title').text()+1);
                 $(this).hide();
             }
-            else{
+            else {
                 $(this).show();
             }
         })
     });
 
-    $(document).on('click','.favorite-btn', function() {
+     $(document).on('click', '#date-filter-btn', function () {
+         var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            ];
+
+         var start = new Date($("#start-input").val());
+         var finish = new Date($("#finish-input").val());
+         var start = month[start.getMonth()]+' '+ start.getDate()+', '+ start.getFullYear();
+         var finish = month[finish.getMonth()]+' '+ finish.getDate()+', '+ finish.getFullYear();
+         var finish = Date.parse(finish);
+         var start = Date.parse(start);
+        $('.note').each(function () {
+            var str = $(this).children('.note-date').text().replace('.','');
+            var i = str.lastIndexOf(',');
+            str  = str.substr(0,i);
+            var date = Date.parse(str);
+            if(date<=finish & date>=start){
+                $(this).show();
+            }
+            else{
+                $(this).hide();
+            }
+
+        })
+    });
+
+    $(document).on('click', '.favorite-btn', function () {
         var id = $(this).parent().attr("id").substr(4);
         $.ajax({
             type: 'POST',
             url: '/note/favorite/' + id,
             success: function (data) {
                 if (data == 'True') {
-                    $('#btn-img' + id).attr('src','/static/img/favorite.png');
+                    $('#btn-img' + id).attr('src', '/static/img/favorite.png');
                 }
                 else {
-                    $('#btn-img' + id).attr('src','/static/img/not_favorite.png');
-                    if ($("#favorite-filter-radio").prop("checked")){
-                        $("#note"+id).hide();
+                    $('#btn-img' + id).attr('src', '/static/img/not_favorite.png');
+                    if ($("#favorite-filter-radio").prop("checked")) {
+                        $("#note" + id).hide();
                     }
                 }
             }
@@ -61,56 +113,56 @@ $(document).ready(function(){
     });
 
 
-$('input:radio[name="filter"]').change(
-    function(){
-        if ($(this).is(':checked')) {
-            if($(this).val() == 'category') {
-                $('#category-details').show();
-                $('#title-details').hide();
-                $('#date-details').hide();
+    $('input:radio[name="filter"]').change(
+        function () {
+            if ($(this).is(':checked')) {
+                if ($(this).val() == 'category') {
+                    $('#category-details').show();
+                    $('#title-details').hide();
+                    $('#date-details').hide();
 
-                $('input:radio[name="category"]').change(function () {
-                    if ($(this).is(':checked')) {
-                        var value = $(this).val();
-                        $('.note').each(function(){
-                            if ($(this).children('.note-category').text() != value){
-                                $(this).hide();
-                            }
-                            else{
-                                 $(this).show();
-                            }
-                        })
-                    }
-                });
-            }
-            if($(this).val() == 'title'){
-                $('#category-details').hide();
-                $('#title-details').show();
-                $('#date-details').hide();
-            }
-             if($(this).val() == 'date'){
-                 $('#category-details').hide();
-                 $('#title-details').hide();
-                 $('#date-details').show();
+                    $('input:radio[name="category"]').change(function () {
+                        if ($(this).is(':checked')) {
+                            var value = $(this).val();
+                            $('.note').each(function () {
+                                if ($(this).children('a').children('.note-category').text() != value) {
+                                    $(this).hide();
+                                }
+                                else {
+                                    $(this).show();
+                                }
+                            })
+                        }
+                    });
+                }
+                if ($(this).val() == 'title') {
+                    $('#category-details').hide();
+                    $('#title-details').show();
+                    $('#date-details').hide();
+                }
+                if ($(this).val() == 'date') {
+                    $('#category-details').hide();
+                    $('#title-details').hide();
+                    $('#date-details').show();
 
 
-            }
-             if($(this).val() == 'favorite'){
-                 $('#category-details').hide();
-                 $('#title-details').hide();
-                 $('#date-details').hide();
-                  $('.note').each(function(){
-                      if ($(this).children('.favorite-btn').children('.btn-img').attr('src') == '/static/img/not_favorite.png'){
-                          $(this).hide();
-                      }
-                      else{
-                          $(this).show();
-                      }
-                  })
+                }
+                if ($(this).val() == 'favorite') {
+                    $('#category-details').hide();
+                    $('#title-details').hide();
+                    $('#date-details').hide();
+                    $('.note').each(function () {
+                        if ($(this).children('.favorite-btn').children('.btn-img').attr('src') == '/static/img/not_favorite.png') {
+                            $(this).hide();
+                        }
+                        else {
+                            $(this).show();
+                        }
+                    })
 
+                }
             }
-        }
-    });
+        });
 });
 
 function getCookie(name) {

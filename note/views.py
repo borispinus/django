@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render_to_response, redirect
 from note.models import Note
-from django.http.response import Http404, HttpResponse
+from django.http.response import Http404, HttpResponse, HttpResponseForbidden
 from django.core.exceptions import ObjectDoesNotExist
 from note.forms import NoteForm
 from django.core.context_processors import csrf
@@ -13,22 +13,20 @@ from django.core.serializers.json import DjangoJSONEncoder
 # Create your views here.
 
 
-class LazyEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return list(obj)
-        return super(LazyEncoder, self).default(obj)
-
-
 def all(request):
     args = {}
     args.update(csrf(request))
-    args['notes'] = Note.objects.all
+    if (request.user.is_authenticated()):
+        args['notes'] = Note.objects.filter(user=request.user)
+    else:
+        return redirect('/auth/login')
     args['username'] = auth.get_user(request).username
     return render_to_response('all.html', args)
 
 
 def get(request, note_id):
+    if (request.user.is_anonymous() or not Note.objects.filter(user=request.user, id = note_id)):
+       return redirect('/auth/login')
     try:
         return render_to_response('note.html', {'note': Note.objects.get(id=note_id), 'username': auth.get_user(request).username})
     except ObjectDoesNotExist:
@@ -36,22 +34,28 @@ def get(request, note_id):
 
 
 def new(request):
-    args = {}
-    form = NoteForm
-    args.update(csrf(request))
-    args['form'] = form
-    args['username'] = auth.get_user(request).username
-    if (request.method == 'GET'):
-        return render_to_response('new.html',args)
+    if (not request.user.is_authenticated()):
+         return redirect('/auth/login')
     else:
-        if (request.POST):
-            form = NoteForm(request.POST)
-            if form.is_valid():
-                note = form.save(commit=False)
-                note.date = datetime.now()
-                note.save()
-                return redirect('/note/all')
-        return render_to_response('new.html',args)
+        args = {}
+        form = NoteForm
+        args.update(csrf(request))
+        args['form'] = form
+        args['username'] = auth.get_user(request).username
+        if (request.method == 'GET'):
+            return render_to_response('new.html',args)
+        else:
+            if (request.POST):
+                form = NoteForm(request.POST)
+                if form.is_valid():
+                    note = form.save(commit=False)
+                    note.date = datetime.now()
+                    note.user = request.user
+                    note.save()
+                    return redirect('/note/all')
+                else:
+                    args['errors'] = form.errors
+                return render_to_response('new.html',args)
 
 
 def delete(request, note_id):
@@ -64,18 +68,6 @@ def delete(request, note_id):
             raise Http404
 
 
-def filter_category(request):
-    if (request.is_ajax() and request.POST):
-        notes = Note.objects.filter(category=request.POST.get('category'))
-        list= []
-        for note in notes:
-           list.append(note.to_string())
-        data = json.dumps(list)
-        return HttpResponse({'notes': notes})
-    else:
-        raise Http404
-
-
 def favorite(request, note_id):
      if (request.is_ajax() and request.method == 'POST'):
          note =Note.objects.get(id=note_id)
@@ -84,3 +76,29 @@ def favorite(request, note_id):
          return HttpResponse(note.isFavorite)
      else:
          raise Http404
+
+
+def edit(request, note_id):
+    if (not request.user.is_authenticated()):
+         return redirect('/auth/login')
+    else:
+        args = {}
+        form = NoteForm(instance=Note.objects.get(id = note_id))
+        args.update(csrf(request))
+        args['form'] = form
+        args['username'] = auth.get_user(request).username
+        if (request.method == 'GET'):
+            return render_to_response('edit.html',args)
+        else:
+            if (request.POST):
+                form = NoteForm(request.POST)
+                if form.is_valid():
+                    note = form.save(commit=False)
+                    note.date = datetime.now()
+                    note.user = request.user
+                    note.save()
+                    return redirect('/note/all')
+                else:
+                    args['errors'] = form.errors
+                return render_to_response('edit.html',args)
+

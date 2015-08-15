@@ -1,43 +1,48 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
 {% block note %}
-    <form>
-        <label>По дате</label>
-        <input type="radio" name="filter" value="date" id="date-filter-radio" >
-        <label>По категории</label>
-        <input type="radio" name="filter" value="category" id="category-filter-radio" >
-        <label>По заголовку</label>
-        <input type="radio" name="filter" value="title" id="category-filter-radio" >
-        <label>Избранное</label>
+<form id="filter-form">
+
+        <label >By date</label>
+        <input type="radio" name="filter" value="date" id="date-filter-radio">
+        <label>By category</label>
+        <input type="radio" name="filter" value="category" id="category-filter-radio">
+        <label>By title</label>
+        <input type="radio" name="filter" value="title" id="category-filter-radio">
+        <label>Favorite</label>
         <input type="radio" name="filter" value="favorite" id="favorite-filter-radio">
-    </form>
-    <br>
-    <div id="title-details" style="display: none">
+</form>
+    <div id="title-details">
         <label>Enter title</label>
         <input type="text" class="title-input">
         <button id="title-filter-btn">Find</button>
     </div>
 
-    <div id="date-details" style="display: none">
-        <form>
-            <label>Enter start date</label>
-            <input type="datetime" name="start">
-            <label>Enter end date</label>
-            <input type="datetime" name="finish">
-            <input type="submit" id="date-filter-btn">Find</input>
-        </form>
+
+    <div id="date-details" >
+        <div class="input-append date" id="dp1" data-date="15-08-2015" data-date-format="mm dd yyyy">
+            <input class="span2" size="16" type="text" id="start-input" >
+            <span class="add-on"><i class="icon-th"></i></span>
+        </div>
+        <div class="input-append date" id="dp2" data-date="16-08-2015" data-date-format="mm dd yyyy">
+            <input class="span2" size="16" type="text" id="finish-input">
+            <span class="add-on"><i class="icon-th"></i></span>
+        </div>
+        <br>
+        <button id="date-filter-btn">Find</button>
     </div>
 
-    <div id="category-details" style="display: none">
+
+    <form id="category-details">
         <label>link</label>
         <input type="radio" name="category" value="LINK">
         <label>note</label>
-        <input type="radio" name="category" value="NOTE" >
+        <input type="radio" name="category" value="NOTE">
         <label>todo</label>
         <input type="radio" name="category" value="TODO">
         <label>memo</label>
         <input type="radio" name="category" value="MEMO">
-    </div>
+    </form>
 
     <div id="notes_wrapper">
         <div id="notes">
@@ -45,22 +50,33 @@
                 <div id='note{{ note.id }}' class="note">
                     {% if note.isFavorite %}
 
-                    <button id="favorite-btn{{ note.id }}" class="favorite-btn" ><img class="btn-img" id="btn-img{{ note.id }}" src= {% static 'img/favorite.png' %}></button>
+                        <a role='button' tabindex="0" id="favorite-btn{{ note.id }}" class="favorite-btn"><img class="btn-img"
+                                                                                         id="btn-img{{ note.id }}"
+                                                                                         src= {% static 'img/favorite.png' %}>
+                        </a>
 
-                        {% else %}
+                    {% else %}
 
-                        <button id='not_favorite-btn{{ note.id }}' class="favorite-btn"><img id="btn-img{{ note.id }}" class="btn-img" src= {% static 'img/not_favorite.png' %}></button>
+                        <a role='button' tabindex="0" id='not_favorite-btn{{ note.id }}' class="favorite-btn"><img id="btn-img{{ note.id }}"
+                                                                                             class="btn-img"
+                                                                                             src= {% static 'img/not_favorite.png' %}>
+                        </a>
 
                     {% endif %}
-                    <h2 class="note-title">{{ note.title }}</h2>
-                    <p> {{ note.text }} </p>
+                    <a href="/note/{{ note.id }}"><h2 class="note-category">{{ note.category }}</h2></a>
+                    <h3 class="note-title">{{ note.title }}</h3>
                     <br>
-                    <p class="note-category">{{ note.category }}</p>
-                    <button class="delete-btn">Delete</button>
-                <br>
-                <br>
+                    <p class="note-text"> {{ note.text }} </p>
+                    <br>
+                    <p class="note-date">{{ note.date }}</p>
+                    <form action="/note/edit/{{ note.id }}/">
+                        <button   class="edit-btn">Edit</button >
+                    </form>
+                    <button class="delete-btn button alert">Delete</button>
+                    <br>
+                    <br>
                 </div>
             {% endfor %}
-            </div>
         </div>
+    </div>
 {% endblock %}
