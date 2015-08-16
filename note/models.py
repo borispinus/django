@@ -15,10 +15,6 @@ class Note(models.Model):
 
     )
 
-    def to_string(self):
-        return {'title':self.title, 'text': self.text, 'date': str(self.date),
-                'category': self.category, 'is_favorite': self.isFavorite }
-
     title = models.CharField(max_length=200)
     text = models.TextField()
     date = models.DateTimeField()

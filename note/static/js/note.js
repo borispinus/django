@@ -9,12 +9,23 @@ $(document).ready(function () {
     });
     $(document).on('click', '#filter-btn', function () {
         $('#filter-form').show();
+        $('#filter').show();
+        $('#sort').hide();
     });
 
+     $(document).on('click', '#sort-btn', function () {
+         $('#sort-form').show();
+         $('#sort').show();
+         $('#filter').hide();
+    });
 
+    if (window.location.href.replace(/^(?:\/\/|[^\/]+)*\//, "") =='note/all/'){
+        $(".features").show();
+    }
+    else{
+        $(".features").hide();
+    }
 
-    var nowTemp = new Date();
-    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
     var checkin = $('#dp1').datepicker().on('changeDate', function (ev) {
         if (ev.date.valueOf() > checkout.date.valueOf()) {
@@ -73,10 +84,10 @@ $(document).ready(function () {
 
          var start = new Date($("#start-input").val());
          var finish = new Date($("#finish-input").val());
-         var start = month[start.getMonth()]+' '+ start.getDate()+', '+ start.getFullYear();
-         var finish = month[finish.getMonth()]+' '+ finish.getDate()+', '+ finish.getFullYear();
-         var finish = Date.parse(finish);
-         var start = Date.parse(start);
+         start = month[start.getMonth()]+' '+ start.getDate()+', '+ start.getFullYear();
+         finish = month[finish.getMonth()]+' '+ finish.getDate()+', '+ finish.getFullYear();
+         finish = Date.parse(finish);
+         start = Date.parse(start);
         $('.note').each(function () {
             var str = $(this).children('.note-date').text().replace('.','');
             var i = str.lastIndexOf(',');
@@ -163,6 +174,30 @@ $(document).ready(function () {
                 }
             }
         });
+    $('input:radio[name="sort"]').change(function(){
+        var $divs = $("div.note");
+        if ($(this).is(':checked')) {
+            if ($(this).val() == 'category') {
+                    var orderedByCategoryDivs = $divs.sort(function (a, b) {
+                        return $(a).find(".note-category").text() > $(b).find(".note-category").text();
+                });
+                $("#notes").html(orderedByCategoryDivs);
+
+            }
+            if ($(this).val() == 'date') {
+                var str = $(this).children('.note-date').text().replace('.','');
+                var i = str.lastIndexOf(',');
+                str  = str.substr(0,i);
+                var date = Date.parse(str);
+
+            }
+             if ($(this).val() == 'favorite') {
+
+            }
+        }
+    })
+
+
 });
 
 function getCookie(name) {

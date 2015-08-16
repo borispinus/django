@@ -25,7 +25,12 @@
               </ul>
             {% if username %}
                 <ul class="left">
-                    <li><a role="button" tabindex="0" id="filter-btn">Filter</a></li>
+                    <li><a href="/note/all">My notes</a></li>
+                    <li><a href="/note/new">New note</a></li>
+                    <div class="features hide">
+                        <li><a role="button" tabindex="0" id="sort-btn">Sort</a></li>
+                        <li><a role="button" tabindex="0" id="filter-btn">Filter</a></li>
+                    </div>
                 </ul>
             {% endif %}
           </section>

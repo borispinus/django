@@ -1,48 +1,64 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
 {% block note %}
-<form id="filter-form">
+    <div id="filter" class="hide">
+        <form id="filter-form">
+            <h6>Filter:</h6>
+            <label class="lbl" >by date</label>
+            <input type="radio" name="filter" value="date" id="date-filter-radio">
+            <label>by category</label>
+            <input type="radio" name="filter" value="category" id="category-filter-radio">
+            <label>by title</label>
+            <input type="radio" name="filter" value="title" id="category-filter-radio">
+            <label>favorite</label>
+            <input type="radio" name="filter" value="favorite" id="favorite-filter-radio">
+        </form>
 
-        <label >By date</label>
-        <input type="radio" name="filter" value="date" id="date-filter-radio">
-        <label>By category</label>
-        <input type="radio" name="filter" value="category" id="category-filter-radio">
-        <label>By title</label>
-        <input type="radio" name="filter" value="title" id="category-filter-radio">
-        <label>Favorite</label>
-        <input type="radio" name="filter" value="favorite" id="favorite-filter-radio">
-</form>
-    <div id="title-details">
-        <label>Enter title</label>
-        <input type="text" class="title-input">
-        <button id="title-filter-btn">Find</button>
+        <div id="title-details">
+            <label>Enter title</label>
+            <input type="text" class="title-input">
+            <button id="title-filter-btn">Find</button>
+        </div>
+
+
+        <div id="date-details" >
+            <div class="input-append date" id="dp1" data-date="15-08-2015" data-date-format="mm dd yyyy">
+                <input class="span2" size="16" type="text" id="start-input" >
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <div class="input-append date" id="dp2" data-date="16-08-2015" data-date-format="mm dd yyyy">
+                <input class="span2" size="16" type="text" id="finish-input">
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <br>
+            <button id="date-filter-btn">Find</button>
+        </div>
+
+        <form id="category-details">
+            <h6>Choose category:</h6>
+            <label class="lbl">link</label>
+            <input type="radio" name="category" value="LINK">
+            <label>note</label>
+            <input type="radio" name="category" value="NOTE">
+            <label>todo</label>
+            <input type="radio" name="category" value="TODO">
+            <label>memo</label>
+            <input type="radio" name="category" value="MEMO">
+        </form>
     </div>
 
-
-    <div id="date-details" >
-        <div class="input-append date" id="dp1" data-date="15-08-2015" data-date-format="mm dd yyyy">
-            <input class="span2" size="16" type="text" id="start-input" >
-            <span class="add-on"><i class="icon-th"></i></span>
-        </div>
-        <div class="input-append date" id="dp2" data-date="16-08-2015" data-date-format="mm dd yyyy">
-            <input class="span2" size="16" type="text" id="finish-input">
-            <span class="add-on"><i class="icon-th"></i></span>
-        </div>
-        <br>
-        <button id="date-filter-btn">Find</button>
+    <div id="sort">
+        <form id="sort-form" class="hide">
+            <h6>Sort:</h6>
+            <label class="lbl" >by date</label>
+            <input type="radio" name="sort" value="date" id="date-sort-radio">
+            <label>by category</label>
+            <input type="radio" name="sort" value="category" id="category-sort-radio">
+            <label>favorite</label>
+            <input type="radio" name="sort" value="favorite" id="favorite-sort-radio">
+        </form>
     </div>
 
-
-    <form id="category-details">
-        <label>link</label>
-        <input type="radio" name="category" value="LINK">
-        <label>note</label>
-        <input type="radio" name="category" value="NOTE">
-        <label>todo</label>
-        <input type="radio" name="category" value="TODO">
-        <label>memo</label>
-        <input type="radio" name="category" value="MEMO">
-    </form>
 
     <div id="notes_wrapper">
         <div id="notes">
@@ -51,15 +67,15 @@
                     {% if note.isFavorite %}
 
                         <a role='button' tabindex="0" id="favorite-btn{{ note.id }}" class="favorite-btn"><img class="btn-img"
-                                                                                         id="btn-img{{ note.id }}"
-                                                                                         src= {% static 'img/favorite.png' %}>
+                                                                                                               id="btn-img{{ note.id }}"
+                                                                                                               src= {% static 'img/favorite.png' %}>
                         </a>
 
                     {% else %}
 
                         <a role='button' tabindex="0" id='not_favorite-btn{{ note.id }}' class="favorite-btn"><img id="btn-img{{ note.id }}"
-                                                                                             class="btn-img"
-                                                                                             src= {% static 'img/not_favorite.png' %}>
+                                                                                                                   class="btn-img"
+                                                                                                                   src= {% static 'img/not_favorite.png' %}>
                         </a>
 
                     {% endif %}

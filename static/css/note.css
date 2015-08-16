@@ -20,8 +20,9 @@
 #title-details {
     display: none;
 }
-#filter-btn{
-    background: none ;
+label.lbl{
+    display: inline;
+    margin-right: 12px;
 }
 #filter-form{
     display: none;
@@ -46,7 +47,7 @@ form{
     text-align: center;
     margin-top: 40px;
     margin-left: auto;
-    margin-left: auto;
+    margin-right: auto;
 }
 p{
     overflow-wrap: break-word;
@@ -68,4 +69,7 @@ p{
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+}
+.features{
+    display: inline;
 }
