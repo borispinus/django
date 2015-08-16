@@ -50,8 +50,10 @@
     <div id="sort">
         <form id="sort-form" class="hide">
             <h6>Sort:</h6>
-            <label class="lbl" >by date</label>
-            <input type="radio" name="sort" value="date" id="date-sort-radio">
+            <label class="lbl" >by date (from old to new)</label>
+            <input type="radio" name="sort" value="dateUp" id="date-sort-radio">
+            <label >by date (from new to old)</label>
+            <input type="radio" name="sort" value="dateDown" id="date-sort-radio">
             <label>by category</label>
             <input type="radio" name="sort" value="category" id="category-sort-radio">
             <label>favorite</label>
@@ -85,6 +87,7 @@
                     <p class="note-text"> {{ note.text }} </p>
                     <br>
                     <p class="note-date">{{ note.date }}</p>
+                    <p class="date hide">{{ note.date | date:'r' }}</p>
                     <form action="/note/edit/{{ note.id }}/">
                         <button   class="edit-btn">Edit</button >
                     </form>

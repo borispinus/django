@@ -45,11 +45,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="all.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="all.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/note/templates/all.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.68390805">
-              <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
+            <state vertical-scroll-proportion="-9.791667">
+              <caret line="68" column="26" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -95,21 +95,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/loginsys/templates/register.html">
+      <file leaf-file-name="note.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/note/static/js/note.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.875">
-              <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="202" column="87" selection-start-line="202" selection-start-column="87" selection-end-line="202" selection-end-column="87" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="note.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/note/static/js/note.js">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="183" column="54" selection-start-line="183" selection-start-column="54" selection-end-line="183" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.45787546">
+              <caret line="62" column="145" selection-start-line="62" selection-start-column="145" selection-end-line="62" selection-end-column="145" />
               <folding />
             </state>
           </provider>
@@ -170,8 +170,8 @@
         <option value="$PROJECT_DIR$/note/models.py" />
         <option value="$PROJECT_DIR$/templates/layout.html" />
         <option value="$PROJECT_DIR$/static/css/note.css" />
-        <option value="$PROJECT_DIR$/note/static/js/note.js" />
         <option value="$PROJECT_DIR$/note/templates/all.html" />
+        <option value="$PROJECT_DIR$/note/static/js/note.js" />
       </list>
     </option>
   </component>
@@ -360,24 +360,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="loginsys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="loginsys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -673,9 +655,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="58" width="1272" height="675" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32886904" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -880,14 +862,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="145" selection-start-line="62" selection-start-column="145" selection-end-line="62" selection-end-column="145" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/loginsys/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -967,14 +941,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loginsys/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.125">
-          <caret line="13" column="75" selection-start-line="13" selection-start-column="75" selection-end-line="13" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/note/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1015,14 +981,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/note/static/js/note.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="183" column="54" selection-start-line="183" selection-start-column="54" selection-end-line="183" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/note/templates/edit.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.0">
@@ -1031,10 +989,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/loginsys/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.125">
+          <caret line="13" column="75" selection-start-line="13" selection-start-column="75" selection-end-line="13" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/note/templates/all.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68390805">
-          <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
+        <state vertical-scroll-proportion="-9.791667">
+          <caret line="68" column="26" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/note/static/js/note.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="202" column="87" selection-start-line="202" selection-start-column="87" selection-end-line="202" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45787546">
+          <caret line="62" column="145" selection-start-line="62" selection-start-column="145" selection-end-line="62" selection-end-column="145" />
           <folding />
         </state>
       </provider>
