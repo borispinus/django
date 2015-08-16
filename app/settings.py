@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 TEMPLATE_DIRS = (
-    '/home/boro/djangoenv/bin/app/templates',
+    '/home/boro/djangoenv/bin/heroku/app/templates',
 )
 
 # Application definition
@@ -60,7 +60,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/home/boro/djangoenv/bin/app/templates', '/home/boro/djangoenv/bin/app/note/templates', '/home/boro/djangoenv/bin/app/loginsys/templates'],
+        'DIRS': ['/home/boro/djangoenv/bin/heroku/app/templates', '/home/boro/djangoenv/bin/heroku/app/note/templates', '/home/boro/djangoenv/bin/heroku/app/loginsys/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
