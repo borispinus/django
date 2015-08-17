@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    //csrf
     $.ajaxSetup({
         beforeSend: function (xhr, settings) {
             if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
@@ -26,7 +27,7 @@ $(document).ready(function () {
         $(".features").hide();
     }
 
-
+    //Datepicker handling
     var checkin = $('#dp1').datepicker().on('changeDate', function (ev) {
         if (ev.date.valueOf() > checkout.date.valueOf()) {
             var newDate = new Date(ev.date)
@@ -43,7 +44,7 @@ $(document).ready(function () {
 
 
 
-
+    //Note deleting
     $(document).on('click', '.delete-btn', function () {
         var id = $(this).parent().attr("id").substr(4);
         $.ajax({
@@ -62,7 +63,7 @@ $(document).ready(function () {
 
         $("#notes_wrapper").load(location.href + " #notes");
     });
-
+    //title filter
     $(document).on('click', '#title-filter-btn', function () {
         var value = $('.title-input').val();
         $('.note').each(function () {
@@ -76,7 +77,7 @@ $(document).ready(function () {
             }
         })
     });
-
+    //Date filter
      $(document).on('click', '#date-filter-btn', function () {
          var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -102,7 +103,7 @@ $(document).ready(function () {
 
         })
     });
-
+    //make/unmake favorite
     $(document).on('click', '.favorite-btn', function () {
         var id = $(this).parent().attr("id").substr(4);
         $.ajax({
@@ -123,7 +124,7 @@ $(document).ready(function () {
 
     });
 
-
+    //Filter
     $('input:radio[name="filter"]').change(
         function () {
             if ($(this).is(':checked')) {
@@ -174,6 +175,8 @@ $(document).ready(function () {
                 }
             }
         });
+
+    //Sort
     $('input:radio[name="sort"]').change(function(){
         var $divs = $("div.note");
         if ($(this).is(':checked')) {
